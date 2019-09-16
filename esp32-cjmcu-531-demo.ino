@@ -4,13 +4,23 @@
  * Based on examples from Sparkfun and https://circuits4you.com
  */
  
-// 3rd party libraries
-#include <WiFi.h>
+// Check to see what ESP MCU is being used.
+#if defined(ARDUINO_ESP8266_WEMOS_D1MINI) 
+  #include <ESP8266WiFi.h>
+  #include <ESP8266WebServer.h> 
+#elif defined(ARDUINO_ESP32_DEV) 
+  #include <WiFi.h>
+  #include <WebServer.h>
+#else
+  #error " Unsupported board type selected ... "  
+#endif
+
+// 3rd Party Libraries
 #include <WiFiClient.h>
-#include <WebServer.h>
 #include <ArduinoJson.h>
 #include <Wire.h>
 #include <SparkFun_VL53L1X.h>
+#include "mywifi.h"
 
 // Embedded web page contents
 #include "index.h"    
@@ -30,22 +40,12 @@ int interval;      // how often to start readings in ms
 bool enabled = true; // main enabled/disabled thing
 String mode = "mid"; // range mode
 
-// Wifi
-#if __has_include("mywifi.h")
-  // I keep my settings in a seperate header file that is not checked into git
-  #include "mywifi.h"
-#else
-  // Leave as is to create an accesspoint, or set ACCESSPOINT 
-  //  to false and supply your networks SSID and PASSWORD.
-  #define ACCESSPOINT
-  #define ACCESSPOINTIP 192,168,4,1
-  #define ACCESSPOINTMASK 255,255,255,1
-  const char* ssid = "VL53L0X-demo";
-  const char* password = ""; // no password == very insecure, but very easy to demo
-#endif
-
 // Webserver
-WebServer server(80);
+#if defined(ARDUINO_ESP8266_WEMOS_D1MINI) 
+ ESP8266WebServer server(80);
+#elif defined(ARDUINO_ESP32_DEV)
+  WebServer server(80);
+#endif
 
 // Distance Sensor
 SFEVL53L1X distanceSensor;
