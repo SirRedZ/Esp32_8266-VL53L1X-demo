@@ -2,12 +2,12 @@
 Designed (initially) for the VL53L1X (4 meter) sensor:
 https://www.st.com/en/imaging-and-photonics-solutions/vl53l1x.html
 
-Using this in can be as easy as connecting to the 'VL53L0X-demo' wifi network (no password needed), and then browsing to '192.168.4.1' for the UI.
+Using this can be as easy as connecting to the 'VL53L1X-demo' wifi network (no password needed), and then browsing to '192.168.4.1' for the UI. - **Currently not working consistently**
 
 ![The results](/docs/graph-panel.png)
 
 #### Requirements:
-* ESP8266 Compatible (tested on a D1 Mini- clone) MCU
+* ESP8266 Compatible (tested on a D1 Mini - clone) MCU
 * ESP32 DEV module connected to a suitable sensor; any ESP 32 module should be suitable, but you may need to adapt pinouts.
 * ESP development libs installed in a viable development environment: see https://github.com/espressif/arduino-esp32 
   For the Arduino IDE the instructions are at  https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
